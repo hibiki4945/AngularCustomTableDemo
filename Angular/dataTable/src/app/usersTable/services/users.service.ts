@@ -6,8 +6,10 @@ import { SortingInterface } from "../types/sorting.interface";
 
 @Injectable()
 export class UsersService {
+    // constructor = 注入
     constructor(private httpClient: HttpClient) {}
 
+    // Observable = シンクロ化
     getUsers(sorting: SortingInterface, searchValue: string): Observable<UserInterface[]> {
         const url = `http://127.0.0.1:8000/users?_sort=${sorting.column}&_order=${sorting.order}&name_like=${searchValue}`;
         // const url = `http://127.0.0.1:8000/users`;

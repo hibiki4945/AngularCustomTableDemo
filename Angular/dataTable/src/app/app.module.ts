@@ -15,7 +15,7 @@ import { UsersTableModule } from './usersTable/usersTable.module';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    UsersTableModule
+    UsersTableModule // 自作テーブル
   ],
   providers: [],
   bootstrap: [AppComponent]
