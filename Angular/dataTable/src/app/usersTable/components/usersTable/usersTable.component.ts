@@ -92,17 +92,11 @@ export class UsersTableComponent implements OnInit {
 
     
     // ファイルをダウンロード
-    // download(rowIndex: number): void {
         download(fileNo: number, fileName: string): void {
             console.log("fileNo: "+fileNo)
     
-            // this.usersService.download(fileNo)
             this.usersService.download(fileNo)
                 .subscribe(users => {
-                    // console.log("this.usersService.downloadのfileNo: "+fileNo)
-                    // console.log("users: "+users)
-                    // console.log("users: "+typeof(users))
-
                     const url = window.URL.createObjectURL(new Blob([users],
                         { type: 'application/octet-stream' }));//　octet-streamはファイル形式を指定しない場合に使う
                     const link = document.createElement('a');
@@ -113,55 +107,21 @@ export class UsersTableComponent implements OnInit {
             });
     
         };
-    
-    // // ファイルをダウンロード
-    // // download(rowIndex: number): void {
-    // download(fileNo: number): void {
-    //     console.log("fileNo: "+fileNo)
 
-    //     // this.usersService.download(fileNo)
-    //     this.usersService.download(fileNo)
-    //         .subscribe(users => {
-    //             console.log("this.usersService.downloadのfileNo: "+fileNo)
-    //             console.log("users: "+users)
-    //             console.log("users: "+typeof(users))
-    //         // // users: UserInterface[] = [];
-            
-    //         // // this.users = users
-    //         // const url = window.URL.createObjectURL(new Blob([response.data],
-    //         //     { type: 'application/octet-stream' }));//　octet-streamはファイル形式を指定しない場合に使う
-    //         // const link = document.createElement('a');
-    //         // link.href = url;
-    //         // // let fileNameFull = name
-    //         // // link.setAttribute('download', fileNameFull);
-    //         // link.setAttribute('download', "123");
-    //         // document.body.appendChild(link);
-    //         // link.click();
-    //     });
-
-
-    //     // let saveName = this.data[rowIndex].saveName;
-    //     // let name = this.data[rowIndex].name;
         
-    //     // this.paramDownload.append('userName',saveName.substring(14));
-    //     // this.paramDownload.append('name',name);
-    //     // // ファイルをダウンロード
-    //     // axios.post('http://localhost:8000/download',this.paramDownload,
-    //     //     {
-    //     //         responseType: 'blob', // apiからダウンロードしたファイルをBlobとして受け入れる
-    //     //     }
-    //     //     )
-    //     //         .then(response=>{
-    //     //             const url = window.URL.createObjectURL(new Blob([response.data],
-    //     //                 { type: 'application/octet-stream' }));//　octet-streamはファイル形式を指定しない場合に使う
-    //     //             const link = document.createElement('a');
-    //     //             link.href = url;
-    //     //             let fileNameFull = name
-    //     //             link.setAttribute('download', fileNameFull);
-    //     //             document.body.appendChild(link);
-    //     //             link.click();
-    //     //         })
-
-    // };
+        // // ファイルを削除
+        // deleteFile(rowIndex: number){
+        //     //   let pathStr = path.toString()
+        //     let pathStr = this.data[rowIndex].fileNo.toString()
+            
+        //     // ファイルをダウンロード
+        //     axios.post('http://localhost:8000/delete',
+        //         {pathStr: pathStr},// ファイルパスを送る
+        //         )
+        //         .then(response=>{
+        //             this.searchAll();
+        //             this.searchAllTrashCan();
+        //         })
+        // };
 
 }
