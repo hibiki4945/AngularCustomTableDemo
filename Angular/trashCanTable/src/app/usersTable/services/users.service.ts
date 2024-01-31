@@ -35,4 +35,10 @@ export class UsersService {
         return this.httpClient.post(url, {});
     };
 
+    deletePermanently(fileNo: number){
+        const url = `http://127.0.0.1:8000/deletePermanently\?fileNo=${fileNo}`;
+        // const url = `http://127.0.0.1:8000/download`;
+        return this.httpClient.post(url, {});
+    };
+
 }

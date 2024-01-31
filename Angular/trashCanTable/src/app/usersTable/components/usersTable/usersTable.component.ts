@@ -103,13 +103,12 @@ export class UsersTableComponent implements OnInit {
     };
 
     
-    // // ファイルを削除 
-    // deleteFile(fileNo: number){
-    //     this.usersService.delete(fileNo)
-    //         .subscribe(users => {
-    //             this.searchAll()
-    //             // this.searchAllTrashCan();
-    //     });
-    // };
+    deletePermanently(fileNo: number){
+        this.usersService.deletePermanently(fileNo)
+            .subscribe(users => {
+                this.searchAll()
+                // this.searchAllTrashCan();
+        });
+    };
 
 }

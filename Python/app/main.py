@@ -390,9 +390,7 @@ def cancelDelete(fileNo: int):
     return {'code': '200'}
 
 @app.post("/deletePermanently")
-def deletePermanently(pathStr:Item):
-
-    fileNo = str(pathStr).split("'")[-2]
+def deletePermanently(fileNo: int):
 
     # データベースと接続
     sqlConnect= sqlite3.connect("file_manage.db")
