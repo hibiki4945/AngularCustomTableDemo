@@ -6,7 +6,7 @@
 <table class="users-table">
     <thead>
         <tr>
-            <th 
+            <!-- <th 
                 *ngFor ="let column of columns" 
                 class="users-table-cell" 
                 (click)="sortTable(column)"
@@ -14,13 +14,46 @@
                 {{ capitalize(column) }}
                 <span *ngIf="isDescSorting(column)">▼</span>
                 <span *ngIf="isAscSorting(column)">▲</span>
+            </th> -->
+            <th class="users-table-cell">
+                動作
+            </th>
+            <th class="users-table-cell">
+                ファイル名
+            </th>
+            <th class="users-table-cell">
+                ファイルサイズ
+            </th>
+            <th class="users-table-cell">
+                更新日付
+            </th>
+            <th class="users-table-cell">
+                ファイルパス
             </th>
         </tr>
     </thead>
     <tbody>
         <tr *ngFor="let user of users">
-            <td *ngFor="let column of columns" class="users-table-cell">
+            <!-- <td *ngFor="let column of columns" class="users-table-cell">
                 {{ user[column] }}
+            </td> -->
+            <td class="users-table-cell">
+                <!-- 動作 -->
+                <button type="button" (click)="download(user['FILE_NO'], user['FILE_NAME'])">ダウンロード</button>
+                <!-- <button type="button" (click)="deleteFile(user['FILE_NO')">削除</button> -->
+                <!-- {{ user["FILE_NO"] }} -->
+            </td>
+            <td class="users-table-cell">
+                {{ user["FILE_NAME"] }}
+            </td>
+            <td class="users-table-cell">
+                {{ fileSizeUnit(user["FILE_SIZE"]) }}
+            </td>
+            <td class="users-table-cell">
+                {{ user["UPDATE_YEAR"]+"/"+user["UPDATE_MONTH"]+"/"+user["UPDATE_DAY"] }}
+            </td>
+            <td class="users-table-cell">
+                {{ user["FILE_PATH"] }}
             </td>
         </tr>
     </tbody>
