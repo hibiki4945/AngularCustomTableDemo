@@ -92,8 +92,9 @@ def searchAll():
     # return {'code': '200', 'resultReturn': resultReturn}
     return resultReturn
 
-@app.post("/searchAllTrashCan")
+@app.get("/searchAllTrashCan")
 def searchAllTrashCan():
+    print("searchAllTrashCan!")
     # データベースと接続
     sqlConnect= sqlite3.connect("file_manage.db")
     sqlCursor= sqlConnect.cursor()
@@ -110,12 +111,28 @@ def searchAllTrashCan():
     fileSearchNoExistResult = sqlCursor.execute("SELECT * FROM file WHERE DEL_FLG = 1")
     resultReturn = []
     # 検索結果を取り出す
+    # 検索結果を取り出す
     for  item  in  fileSearchNoExistResult.fetchall():
-        resultReturn.append(item)
+        print(item)
+        print(item[0])
+        itemTemp = {
+            "FILE_NO": item[0],
+            "FILE_NAME": item[1],
+            "FILE_SIZE": item[2],
+            "UPDATE_YEAR": item[3],
+            "UPDATE_MONTH": item[4],
+            "UPDATE_DAY": item[5],
+            "FILE_FORMAT": item[6],
+            "FILE_PATH": item[7],
+            "SAVE_NAME": item[8],
+            "DEL_FLG": item[9],
+        }
+        # resultReturn.append(item)
+        resultReturn.append(itemTemp)
     sqlConnect.close()
 
     # 検索結果を返す
-    return {'code': '200', 'resultReturn': resultReturn}
+    return resultReturn
 
 @app.post("/searchFilePath")
 def searchFilePath():
