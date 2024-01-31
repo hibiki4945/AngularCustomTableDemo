@@ -92,31 +92,24 @@ export class UsersTableComponent implements OnInit {
     }
 
     
-    // ファイルをダウンロード
-        download(fileNo: number, fileName: string): void {
-            console.log("fileNo: "+fileNo)
-    
-            this.usersService.download(fileNo)
-                .subscribe(users => {
-                    const url = window.URL.createObjectURL(new Blob([users],
-                        { type: 'application/octet-stream' }));//　octet-streamはファイル形式を指定しない場合に使う
-                    const link = document.createElement('a');
-                    link.href = url;
-                    link.setAttribute('download', fileName);
-                    document.body.appendChild(link);
-                    link.click();
-            });
-    
-        };
+    cancelDelete(fileNo: number): void {
+        console.log("fileNo: "+fileNo)
 
-        
-        // ファイルを削除 
-        deleteFile(fileNo: number){
-            this.usersService.delete(fileNo)
-                .subscribe(users => {
-                    this.searchAll()
-                    // this.searchAllTrashCan();
-            });
-        };
+        this.usersService.cancelDelete(fileNo)
+            .subscribe(users => {
+                this.searchAll()
+        });
+
+    };
+
+    
+    // // ファイルを削除 
+    // deleteFile(fileNo: number){
+    //     this.usersService.delete(fileNo)
+    //         .subscribe(users => {
+    //             this.searchAll()
+    //             // this.searchAllTrashCan();
+    //     });
+    // };
 
 }

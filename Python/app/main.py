@@ -370,9 +370,10 @@ def delete(fileNo: int):
 
 # ファイルをダウンロード
 @app.post("/cancelDelete")
-def cancelDelete(pathStr:Item):
+# def cancelDelete(pathStr:Item):
+def cancelDelete(fileNo: int):
     
-    fileNo = str(pathStr).split("'")[-2]
+    # fileNo = str(pathStr).split("'")[-2]
 
     # データベースと接続
     sqlConnect= sqlite3.connect("file_manage.db")

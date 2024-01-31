@@ -17,21 +17,20 @@ export class UsersService {
     }
 
     
-    download(fileNo: number) {
-        const url = `http://127.0.0.1:8000/download\?fileNo=${fileNo}`;
-        // const url = `http://127.0.0.1:8000/download`;
-        return this.httpClient.post(url, {},
-            { 
-            headers: new HttpHeaders({'Content-Type': 'octet/stream',
-                                        'Accept': 'octet/stream'}),
-            responseType: 'arraybuffer'
-            }
-        );
-    }
+    // download(fileNo: number) {
+    //     const url = `http://127.0.0.1:8000/download\?fileNo=${fileNo}`;
+    //     // const url = `http://127.0.0.1:8000/download`;
+    //     return this.httpClient.post(url, {},
+    //         { 
+    //         headers: new HttpHeaders({'Content-Type': 'octet/stream',
+    //                                     'Accept': 'octet/stream'}),
+    //         responseType: 'arraybuffer'
+    //         }
+    //     );
+    // }
 
-    // ファイルを削除 
-    delete(fileNo: number){
-        const url = `http://127.0.0.1:8000/delete\?fileNo=${fileNo}`;
+    cancelDelete(fileNo: number){
+        const url = `http://127.0.0.1:8000/cancelDelete\?fileNo=${fileNo}`;
         // const url = `http://127.0.0.1:8000/download`;
         return this.httpClient.post(url, {});
     };
