@@ -327,12 +327,13 @@ def multipleDownload(userNameList: List[str] = Form(...), nameList: List[str] = 
 
 # ファイルをダウンロード
 @app.post("/delete")
-def delete(pathStr:Item):
+# def delete(pathStr:Item):
+def delete(fileNo: int):
     print("delete!")
-    print(pathStr)
+    # print(pathStr)
     
-    fileNo = str(pathStr).split("'")[-2]
-    print("fileNo: "+fileNo)
+    # fileNo = str(pathStr).split("'")[-2]
+    # print("fileNo: "+fileNo)
 
     # データベースと接続
     sqlConnect= sqlite3.connect("file_manage.db")

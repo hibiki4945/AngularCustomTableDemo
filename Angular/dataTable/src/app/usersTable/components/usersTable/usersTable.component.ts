@@ -37,10 +37,10 @@ export class UsersTableComponent implements OnInit {
     constructor(private usersService: UsersService, private fb: FormBuilder) {}
 
     ngOnInit(): void {
-        this.fetchData()
+        this.searchAll()
     }
 
-    fetchData(): void {
+    searchAll(): void {
         this.usersService.getUsers(this.sorting, this.searchValue).subscribe(users => {
             console.log("this.usersService.getUsers")
             // users: UserInterface[] = [];
@@ -69,13 +69,13 @@ export class UsersTableComponent implements OnInit {
             order: futureSortingOrder,
         };
         // console.log(this.sorting);
-        this.fetchData();
+        this.searchAll();
     }
 
     onSearchSubmit(): void {
         // console.log('searchValue', this.searchForm.value.searchValue);
         this.searchValue = this.searchForm.value.searchValue ?? '';
-        this.fetchData();
+        this.searchAll();
     }
 
     // ファイルサイズの単位を変換する
@@ -109,19 +109,13 @@ export class UsersTableComponent implements OnInit {
         };
 
         
-        // // ファイルを削除
-        // deleteFile(rowIndex: number){
-        //     //   let pathStr = path.toString()
-        //     let pathStr = this.data[rowIndex].fileNo.toString()
-            
-        //     // ファイルをダウンロード
-        //     axios.post('http://localhost:8000/delete',
-        //         {pathStr: pathStr},// ファイルパスを送る
-        //         )
-        //         .then(response=>{
-        //             this.searchAll();
-        //             this.searchAllTrashCan();
-        //         })
-        // };
+        // ファイルを削除 
+        deleteFile(fileNo: number){
+            this.usersService.delete(fileNo)
+                .subscribe(users => {
+                    this.searchAll()
+                    // this.searchAllTrashCan();
+            });
+        };
 
 }
