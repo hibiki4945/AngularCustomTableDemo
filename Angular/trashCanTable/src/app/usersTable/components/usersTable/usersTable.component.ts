@@ -11,9 +11,22 @@ import { FormBuilder } from "@angular/forms";
 })
 export class UsersTableComponent implements OnInit {
     users: UserInterface[] = [];
-    columns: Array<keyof UserInterface> = ["id", "name", "age"];
+    usersTemp: UserInterface = {
+        FILE_NO: 0,
+        FILE_NAME: "",
+        FILE_SIZE: 0,
+        UPDATE_YEAR: "",
+        UPDATE_MONTH: "",
+        UPDATE_DAY: "",
+        FILE_FORMAT: "",
+        FILE_PATH: "",
+        SAVE_NAME: "",
+        DEL_FLG: 0,
+    }
+    // columns: Array<keyof UserInterface> = ["FILE_NO", "FILE_NAME", "FILE_SIZE", "UPDATE_YEAR", "UPDATE_MONTH", "UPDATE_DAY", "FILE_FORMAT", "FILE_PATH", "SAVE_NAME", "DEL_FLG"];
+    // columns: Array<keyof UserInterface> = ["FILE_NAME", "FILE_SIZE", "UPDATE_YEAR", "UPDATE_MONTH", "UPDATE_DAY", "FILE_FORMAT", "FILE_PATH", "SAVE_NAME", "DEL_FLG"];
     sorting: SortingInterface = {
-        column: 'id',
+        column: 'FILE_NO',
         order: 'asc',
     };
     searchValue: string = '';
@@ -24,12 +37,16 @@ export class UsersTableComponent implements OnInit {
     constructor(private usersService: UsersService, private fb: FormBuilder) {}
 
     ngOnInit(): void {
-        this.fetchData()
+        this.searchAll()
     }
 
-    fetchData(): void {
+    searchAll(): void {
         this.usersService.getUsers(this.sorting, this.searchValue).subscribe(users => {
-            this.users = users;
+            console.log("this.usersService.getUsers")
+            // users: UserInterface[] = [];
+            
+            this.users = users
+            // console.log(users)
             console.log(this.users)
         });
     }
@@ -53,13 +70,45 @@ export class UsersTableComponent implements OnInit {
             order: futureSortingOrder,
         };
         // console.log(this.sorting);
-        this.fetchData();
+        this.searchAll();
     }
 
     onSearchSubmit(): void {
         // console.log('searchValue', this.searchForm.value.searchValue);
         this.searchValue = this.searchForm.value.searchValue ?? '';
-        this.fetchData();
+        this.searchAll();
     }
+
+    // ファイルサイズの単位を変換する
+    fileSizeUnit(size: number){
+        if(size <= 1000)
+            return Math.round(size)+"B"
+        else if(size <= 1000000)
+            return Math.round(size/1000)+"KB"
+        else if(size <= 1000000000)
+            return Math.round(size/1000000)+"MB"
+        else
+            return Math.round(size/1000000000)+"TB"
+    }
+
+    
+    cancelDelete(fileNo: number): void {
+        console.log("fileNo: "+fileNo)
+
+        this.usersService.cancelDelete(fileNo)
+            .subscribe(users => {
+                this.searchAll()
+        });
+
+    };
+
+    
+    deletePermanently(fileNo: number){
+        this.usersService.deletePermanently(fileNo)
+            .subscribe(users => {
+                this.searchAll()
+                // this.searchAllTrashCan();
+        });
+    };
 
 }
